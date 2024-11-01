@@ -44,18 +44,30 @@ pub fn get_default_host() -> String {
     return ret;
 }
 
-pub fn get_hosts() {
+pub fn get_hosts()->Vec<std::string::String> {
     let config: Vec<yaml_rust2::Yaml> = open_config();
     let doc = &config[0];
 
-    let hosts: Vec<yaml_rust2::Yaml> = match doc["hosts"].clone() {
-        yaml_rust2::Yaml::Array(val) => val,
-        _ => panic!("Not Array"),
-    };
+    let mut keys = Vec::new();
 
-    for host in hosts {
-        print!("{}", host.as_str().unwrap().to_string());
+    // print!("{}", doc["hosts"][0].as_str().unwrap().to_string());
+    if let Some(hosts_hash) = doc["hosts"].as_hash() {
+                for (key, _) in hosts_hash {
+                    if let Some(key_str) = key.as_str() {
+                        keys.push(key_str.to_string());
+                    }
+        }
     }
+    return keys;
+
+    //let hosts: Vec<yaml_rust2::Yaml> = match doc["hosts"].clone() {
+    //    yaml_rust2::Yaml::Array(val) => val,
+    //    _ => panic!("Not Array"),
+    //};
+
+    //for host in hosts {
+    //      print!("{}", host.as_str().unwrap().to_string());
+    //   }
 
     // return ret;
 }

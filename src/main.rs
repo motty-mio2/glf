@@ -17,15 +17,6 @@ pub fn main() {
     let item_reader = SkimItemReader::default();
     let items = item_reader.of_bufread(Cursor::new(input));
 
-    // `run_with` would read and show items from the stream
-    // let selected_items = Skim::run_with(&options, Some(items))
-    //     .map(|out| out.selected_items)
-    //     .unwrap_or_else(|| Vec::new());
-
-    // for item in selected_items.iter() {
-    //     print!("{}{}", item.output(), "\n");
-    // }
-    println!("{}", config::get_default_host());
-
-    config::get_hosts();
+    // println!("{}", config::get_default_host());
+    // print!("{:?}", config::get_hosts());
 }
